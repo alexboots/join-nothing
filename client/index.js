@@ -4,13 +4,13 @@ import ApolloClient from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 
 
-cost client = new ApolloClient({ 
+const client = new ApolloClient({ 
   dataIdFromObject: o => o.id
 })
 
 const Root = () => {
   return (
-    <ApolloProvider>
+    <ApolloProvider client={ client }>
       HELLO
     </ApolloProvider>
   );
