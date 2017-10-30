@@ -1,0 +1,45 @@
+{
+  "name": "Join Nothing",
+  "version": "0.0.1",
+  "description": "Join Nothing dot com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexboots/join-nothing.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js --ignore client"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-client": "latest",
+    "axios": "latest",
+
+    "babel-core": "latest",
+    "babel-loader": "latest",
+    "babel-preset-env": "latest",
+    "babel-preset-react": "latest",
+
+    "bcrypt-nodejs": "latest",
+    "body-parser": "latest",
+
+    "connect-mongo": "latest",
+    "express": "latest",
+    "express-graphql": "latest",
+    "express-session": "latest",
+    "graphql": "latest",
+    "graphql-tag": "latest",
+    "html-webpack-plugin": "latest",
+    "lodash": "latest",
+    "mongoose": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "react": "latest",
+    "react-apollo": "latest",
+    "react-dom": "latest",
+    "react-router": "latest",
+    "webpack": "latest",
+    "webpack-dev-middleware": "latest"
+  }
+}
