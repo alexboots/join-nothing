@@ -9,8 +9,12 @@ const RootQuery = new GraphQLObjectType({
     user: { 
       type: UserType,
       resolve: (parentValue, args, req) => {
-        const { user } = req // will be undefined if user is unathenticated
+        console.log('RootQueryType => user');
+
+        const { user, session } = req // will be undefined if user is unathenticated
         console.log('user', user);
+        console.log('session', session);
+        console.log("\n\n\n");
         return user
       }
     }

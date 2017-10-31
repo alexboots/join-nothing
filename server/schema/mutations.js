@@ -9,7 +9,7 @@ const {
   GraphQLNonNull
 } = graphql;
 
-const mutation = new GraphQLObjectType({
+const mutations = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     signupUser: {
@@ -48,10 +48,11 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, args, req) { 
         const { email, password } = args
+
         return AuthService.login({ email, password, req })
       }
     },
   }
 })
 
-module.exports = mutation
+module.exports = mutations

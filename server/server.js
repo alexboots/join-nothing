@@ -1,6 +1,6 @@
 const express = require('express');
 const models = require('./models');
-const expressGraphQL = require('express-graphql');
+const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -46,12 +46,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Instruct Express to pass on any request made to the '/graphql' route
-// to the GraphQL instance.
-app.use('/graphql', expressGraphQL({
+//   to the GraphQL instance.
+app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }));
-
 
 // app.get('*', function response(req, res) {
 //   res.sendFile(path.join(__dirname, '../client/index.html'));
