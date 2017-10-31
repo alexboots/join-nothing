@@ -8,9 +8,17 @@ const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
 const path = require('path');
+const cors = require('cors')
 
 // Create a new Express application
 const app = express();
+
+// const corsOptions = {
+//   origin: '/graphql',
+//   credentials: true // <-- REQUIRED backend setting
+// };
+
+// app.use(cors(corsOptions))
 
 const MONGO_URI = require('./secret_mlab_url')
 
@@ -30,7 +38,7 @@ mongoose.connection
 // The cookie itself only contains the id of a session; more data about the session
 // is stored inside of MongoDB.
 app.use(session({
-  resave: true,
+  resave: false,
   saveUninitialized: true,
   secret: 'aaabbbccc',
   store: new MongoStore({
@@ -41,16 +49,26 @@ app.use(session({
 
 // Passport is wired into express as a middleware. When a request comes in,
 // Passport will examine the request's session (as set by the above config) and
-// assign the current user to the 'req.user' object.  See also servces/auth.js
+// assign the current user to the 'req.user' object.  See also services/auth.js
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Instruct Express to pass on any request made to the '/graphql' route
 //   to the GraphQL instance.
+
 app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }));
+
+// app.use('/graphql', (request, response, next) => {
+//   const options = {
+//     graphiql: true,
+//     schema,
+//   };
+
+//   return graphqlHTTP(request => options)(request, response, next);
+// });
 
 // app.get('*', function response(req, res) {
 //   res.sendFile(path.join(__dirname, '../client/index.html'));

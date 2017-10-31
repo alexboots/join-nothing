@@ -1,8 +1,9 @@
 import gql from 'graphql-tag'
 
-export default gql`{
+export default gql`
+{
   user {
-    email,
+    email
     id
   }
 }`

@@ -12,7 +12,7 @@ class Header extends Component {
   render() {
     // const { loading } = this.props.data
 
-    console.log('user', this.props.data.user )
+    console.log('user', this.props.data)
 
     // if(loading) {
     //   return (<Loader active />)
@@ -26,4 +26,4 @@ class Header extends Component {
   } 
 }
 
-export default graphql(GetCurrentUser)(Header)
+export default graphql(LoginUser)(Header)

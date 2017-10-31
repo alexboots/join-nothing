@@ -50,7 +50,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
 function signup({ email, password, req }) {
   const user = new User({ email, password });
   if (!email || !password) { throw new Error('You must provide an email and password.'); }
-
   return User.findOne({ email })
     .then(existingUser => {
       if (existingUser) { throw new Error('Email in use'); }
@@ -75,7 +74,6 @@ function login({ email, password, req }) {
   return new Promise((resolve, reject) => {
     passport.authenticate('local', (err, user) => {
       if (!user) { reject('Invalid credentials.') }
-
       req.login(user, () => resolve(user));
     })({ body: { email, password } });
   });
