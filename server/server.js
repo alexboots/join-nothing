@@ -12,10 +12,7 @@ const path = require('path');
 // Create a new Express application
 const app = express();
 
-// Replace with your mongoLab URI
-// module.exports.url = "mongodb://testuser:n0tasupersecurepasswordbut0hw3ll@ds125555.mlab.com:25555/test-messing-around";
-const mlab_url = "mongodb://asdf:asdf@ds231715.mlab.com:31715/join-nothing";
-const MONGO_URI = mlab_url;
+const MONGO_URI = require('./secret_mlab_url')
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
@@ -56,9 +53,9 @@ app.use('/graphql', expressGraphQL({
 }));
 
 
-app.get('*', function response(req, res) {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
-});
+// app.get('*', function response(req, res) {
+//   res.sendFile(path.join(__dirname, '../client/index.html'));
+// });
 
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
