@@ -1,31 +1,102 @@
 import React, { Component } from 'react'
-// import { Container, Segment, Loader } from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
+import { Button, Loader, List } from 'semantic-ui-react';
 
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 
 // Queries
-import GetCurrentUser from '../queries/GetCurrentUser'
-import LoginUser from '../queries/LoginUser'
+import GetUser   from '../queries/GetUser'
+import Login from '../mutations/Login'
+import Logout    from '../mutations/Logout'
+
+import routes from '../routes'
 
 
-console.log('GetCurrentUser', GetCurrentUser);
 class Header extends Component {
 
+  handleLogin = () => {
+
+  }
+
+  handleLogout = () => {
+    this.props.mutate({
+
+    })
+  }
+
+  handleSignUp = () => {
+
+  }
+
+  renderButtons() {
+    const { user } = this.props.data 
+    const { Home, Signup, Logout, Login } = routes
+
+    if(user) {
+      return (
+        <Link to={ Logout }>
+          <List.Item>
+            <Button onClick={ this.handleLogin }>
+              Log Out
+            </Button>
+          </List.Item>
+        </Link>
+      )
+    } else {
+      return (
+        <div>
+          <Link to={ Home }>
+            <List.Item>
+              <Button>
+                Home
+              </Button>
+            </List.Item>
+          </Link>
+
+          <Link to={ Login }>
+            <List.Item>
+              <Button>
+                Log In
+              </Button>
+            </List.Item>
+          </Link>
+
+          <Link to={ Signup }>
+            <List.Item>
+              <Button>
+                Sign Up
+              </Button>
+            </List.Item>
+          </Link>
+        </div>
+      )
+    }
+  }
+
   render() {
-    // const { loading } = this.props.data
+    const { loading } = this.props.data
 
-    console.log('user', this.props.data)
+    if(loading) {
+      return (<Loader active />)
+    }
 
-    // if(loading) {
-    //   return (<Loader active />)
-    // }
+    console.log('this.props.data', this.props.data);
 
     return (
-      <div>
-        header
-      </div>
+      <List link horizontal>
+        <Link to="/">
+          <List.Item active>
+            <Button>Home</Button>
+          </List.Item>
+        </Link>
+
+        { this.renderButtons() }
+      </List>
     )
-  } 
+  }
 }
 
-export default graphql(GetCurrentUser)(Header)
+export default compose(
+  graphql(GetUser),
+  graphql(Logout)
+)(Header)

@@ -12,7 +12,7 @@ const {
 const mutations = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    signupUser: {
+    signup: {
       type: UserType,
       args: {
         email: { type: new GraphQLNonNull(GraphQLString) },
@@ -31,7 +31,7 @@ const mutations = new GraphQLObjectType({
         return AuthService.signup({ email, password, req })
       }
     },
-    logoutUser: {
+    logout: {
       type: UserType,
       resolve(parentValue, args, req) { 
         // http://www.passportjs.org/docs/logout
@@ -40,7 +40,7 @@ const mutations = new GraphQLObjectType({
         return user
       }
     },
-    loginUser: {
+    login: {
       type: UserType,
       args: {
         email: { type: new GraphQLNonNull(GraphQLString) },
