@@ -1,26 +1,18 @@
 const express = require('express');
 const models = require('./models');
-const graphqlHTTP = require('express-graphql');
+const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
-const path = require('path');
-const cors = require('cors')
 
 // Create a new Express application
 const app = express();
 
-// const corsOptions = {
-//   origin: '/graphql',
-//   credentials: true // <-- REQUIRED backend setting
-// };
-
-// app.use(cors(corsOptions))
-
-const MONGO_URI = require('./secret_mlab_url')
+// Replace with your mongoLab URI
+const MONGO_URI = 'mongodb://asdf:asdf@ds231715.mlab.com:31715/join-nothing';
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
@@ -38,7 +30,7 @@ mongoose.connection
 // The cookie itself only contains the id of a session; more data about the session
 // is stored inside of MongoDB.
 app.use(session({
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   secret: 'aaabbbccc',
   store: new MongoStore({
@@ -49,30 +41,16 @@ app.use(session({
 
 // Passport is wired into express as a middleware. When a request comes in,
 // Passport will examine the request's session (as set by the above config) and
-// assign the current user to the 'req.user' object.  See also services/auth.js
+// assign the current user to the 'req.user' object.  See also servces/auth.js
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Instruct Express to pass on any request made to the '/graphql' route
-//   to the GraphQL instance.
-
-app.use('/graphql', graphqlHTTP({
+// to the GraphQL instance.
+app.use('/graphql', expressGraphQL({
   schema,
   graphiql: true
 }));
-
-// app.use('/graphql', (request, response, next) => {
-//   const options = {
-//     graphiql: true,
-//     schema,
-//   };
-
-//   return graphqlHTTP(request => options)(request, response, next);
-// });
-
-// app.get('*', function response(req, res) {
-//   res.sendFile(path.join(__dirname, '../client/index.html'));
-// });
 
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and

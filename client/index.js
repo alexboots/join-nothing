@@ -1,29 +1,19 @@
-// React
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter, Route } from 'react-router-dom'
-
-// Apollo
-import ApolloClient from 'apollo-client'
-import { createHttpLink, HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo'
+import ApolloClient, { createNetworkInterface } from 'apollo-client'
 
-// Components
-import App from './components/App'
 import Header from './components/Header'
 
-// https://www.apollographql.com/docs/react/recipes/authentication.html
-const link = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+const networkInterface = createNetworkInterface({
+  uri: '/graphql',
   opts: {
-    credentials: 'same-origin'
-  }
+    credentials: 'same-origin',
+  },
 });
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: link
+  networkInterface,
 });
 
 const Root = () => {
@@ -33,15 +23,5 @@ const Root = () => {
     </ApolloProvider>
   );
 };
-
-// const Root = () => {
-//   return (
-//     <ApolloProvider client={ client }>
-//       <BrowserRouter>
-//          <Route exact path="/" component={ App } />
-//       </BrowserRouter>
-//     </ApolloProvider>
-//   );
-// };
 
 ReactDOM.render(<Root />, document.querySelector('#root'));

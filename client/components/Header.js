@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Segment, Loader } from 'semantic-ui-react';
+// import { Container, Segment, Loader } from 'semantic-ui-react';
 
 import { graphql } from 'react-apollo'
 
@@ -7,6 +7,8 @@ import { graphql } from 'react-apollo'
 import GetCurrentUser from '../queries/GetCurrentUser'
 import LoginUser from '../queries/LoginUser'
 
+
+console.log('GetCurrentUser', GetCurrentUser);
 class Header extends Component {
 
   render() {
@@ -26,4 +28,4 @@ class Header extends Component {
   } 
 }
 
-export default graphql(LoginUser)(Header)
+export default graphql(GetCurrentUser)(Header)
