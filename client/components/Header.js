@@ -20,7 +20,9 @@ class Header extends Component {
 
   handleLogout = () => {
     this.props.mutate({
-
+      refetchQueries: [{ query: GetUser }]
+    }).then(response => {
+      console.log('response', response)
     })
   }
 
@@ -36,7 +38,7 @@ class Header extends Component {
       return (
         <Link to={ Logout }>
           <List.Item>
-            <Button onClick={ this.handleLogin }>
+            <Button onClick={ this.handleLogout }>
               Log Out
             </Button>
           </List.Item>
@@ -45,14 +47,6 @@ class Header extends Component {
     } else {
       return (
         <div>
-          <Link to={ Home }>
-            <List.Item>
-              <Button>
-                Home
-              </Button>
-            </List.Item>
-          </Link>
-
           <Link to={ Login }>
             <List.Item>
               <Button>

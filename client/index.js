@@ -23,9 +23,7 @@ const Root = () => {
   return (
     <ApolloProvider client={ client }>
       <Router>
-        <Route exact path="/" component={ App } />
-        
-
+        <Route path="/" component={ App } />
       </Router>
     </ApolloProvider>
   );
