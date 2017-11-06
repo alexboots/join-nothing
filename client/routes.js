@@ -1,6 +1,7 @@
+const Home = '/'
 export default {
-  Home: '/',
-  Signup:  '/signup',
-  Logout: '/logout',
-  Login: '/login'
+  Home: `${Home}`,
+  Signup: `${Home}signup`,
+  Logout: `${Home}logout`,
+  Login:  `${Home}login`
 }

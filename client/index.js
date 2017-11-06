@@ -1,66 +1,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-
+import ApolloClient from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
+import { createHttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+
+import routes from './routes'
+const { Home, Signup, Logout, Login } = routes
 
 import App from './components/App'
+import LoginForm from './components/LoginForm'
+import SignupForm from './components/SignupForm'
 
-const networkInterface = createNetworkInterface({
+
+const link = createHttpLink({
   uri: '/graphql',
-  opts: {
-    credentials: 'same-origin',
-  },
+  credentials: 'same-origin'
 });
 
 const client = new ApolloClient({
-  networkInterface,
+  cache: new InMemoryCache(),
+  link
 });
 
 const Root = () => {
+  console.log('GOODBYE')
   return (
     <ApolloProvider client={ client }>
-      <Router>
-        <Route path="/" component={ App } />
-      </Router>
+      <BrowserRouter>
+        <App>
+          <Route path={ Login } component={ LoginForm } />
+          <Route path={ Signup } component={ SignupForm } />
+
+        { /* Add catch all / 404 path because server doens't hadnle routes */ }
+        </App>
+      </BrowserRouter>
     </ApolloProvider>
-  );
-};
+  )
+}
 
 ReactDOM.render(<Root />, document.querySelector('#root'));
-
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-
-// import ApolloClient from 'apollo-client'
-// import { ApolloProvider } from 'react-apollo'
-// import { createHttpLink } from 'apollo-link-http'
-// import { InMemoryCache } from 'apollo-cache-inmemory'
-
-// import Header from './components/Header'
-
-// const link = createHttpLink({
-//   uri: '/graphql',
-//   opts: {
-//     credentials: 'same-origin',
-//   },
-// });
-
-// const client = new ApolloClient({
-//   cache: new InMemoryCache(),
-//   link
-// });
-
-// const Root = () => {
-//   return (
-//     <ApolloProvider client={ client }>
-//       <Header />
-//     </ApolloProvider>
-//   )
-// }
-
-// ReactDOM.render(<Root />, document.querySelector('#root'));
 
 

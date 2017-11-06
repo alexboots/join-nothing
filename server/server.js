@@ -1,13 +1,14 @@
 const express = require('express');
-const models = require('./models');
+const path = require('path')
 const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
-const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
-const schema = require('./schema/schema');
 
+const models = require('./models');
+const passportConfig = require('./services/auth');
+const schema = require('./schema/schema');
 
 // Create a new Express application
 const app = express();
@@ -62,6 +63,11 @@ app.use('/graphql', expressGraphQL({
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config.js');
+
 app.use(webpackMiddleware(webpack(webpackConfig)));
+
+app.use('*', function(req, res) {
+  res.sendFile(path.join(__dirname+'/../client/index.html'));
+});
 
 module.exports = app;

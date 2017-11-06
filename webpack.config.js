@@ -15,10 +15,5 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'client/index.html'
-    })
-  ]
+  }
 };

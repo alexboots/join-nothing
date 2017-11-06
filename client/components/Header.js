@@ -32,7 +32,7 @@ class Header extends Component {
 
   renderButtons() {
     const { user } = this.props.data 
-    const { Home, Signup, Logout, Login } = routes
+    const { Login, Signup, Logout } = routes
 
     if(user) {
       return (
@@ -73,8 +73,6 @@ class Header extends Component {
     if(loading) {
       return (<Loader active />)
     }
-
-    console.log('this.props.data', this.props.data);
 
     return (
       <List link horizontal>
