@@ -69,6 +69,8 @@ class Header extends Component {
 
   render() {
     const { loading } = this.props.data
+    const { Home } = routes
+
 
     if(loading) {
       return (<Loader active />)
@@ -76,12 +78,11 @@ class Header extends Component {
 
     return (
       <List link horizontal>
-        <Link to="/">
-          <List.Item active>
+        <Link to={ Home }>
+          <List.Item>
             <Button>Home</Button>
           </List.Item>
         </Link>
-
         { this.renderButtons() }
       </List>
     )
