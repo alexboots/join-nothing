@@ -15,7 +15,7 @@ const mutations = new GraphQLObjectType({
     signup: {
       type: UserType,
       args: {
-        email: { type: new GraphQLNonNull(GraphQLString) },
+        username: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, args, req) { 
@@ -25,10 +25,10 @@ const mutations = new GraphQLObjectType({
         //  Has details about the incoming request (url request etc)
 
 
-        const { email, password } = args
+        const { username, password } = args
         // GraphQL doesn't need to know much about how buisness logic works,
         //  we use it as a nice abstraction from the buisness logic of our app
-        return AuthService.signup({ email, password, req })
+        return AuthService.signup({ username, password, req })
       }
     },
     logout: {
@@ -43,13 +43,13 @@ const mutations = new GraphQLObjectType({
     login: {
       type: UserType,
       args: {
-        email: { type: new GraphQLNonNull(GraphQLString) },
+        username: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, args, req) { 
-        const { email, password } = args
+        const { username, password } = args
 
-        return AuthService.login({ email, password, req })
+        return AuthService.login({ username, password, req })
       }
     },
   }

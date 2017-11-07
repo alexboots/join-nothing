@@ -14,7 +14,7 @@ class UserLoggedIn extends Component {
       return(
         <Segment inverted>
           <Header as='h3'>
-            Hi { user.email }
+            Hi { user.username }
           </Header>
           <p>There is nothing here</p>
         </Segment>

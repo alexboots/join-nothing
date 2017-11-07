@@ -12,7 +12,7 @@ class AuthForm extends Component {
     }
   }
 
-  handleEmailChange = (e, data) => {
+  handleUsernameChange = (e, data) => {
     const { value } = data
     this.setState({ username: value })
   }
@@ -59,7 +59,7 @@ class AuthForm extends Component {
             required
             placeholder='username'
             type="input"
-            onChange={ this.handleEmailChange }
+            onChange={ this.handleUsernameChange }
           />
           <Form.Input 
             required

@@ -21,7 +21,7 @@ class SignupForm extends Component {
     const { username, password } = formData
     this.props.mutate({
       variables: { 
-        email: username,
+        username: username,
         password: password
       },
       refetchQueries: [{ query: GetUser }]

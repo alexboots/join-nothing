@@ -4,7 +4,7 @@ export default gql`
 query GetUser {
   user {
     id
-    email
+    username
   }
 }
 `
