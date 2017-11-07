@@ -3,7 +3,7 @@ import { Header, Segment } from 'semantic-ui-react';
 
 import AuthForm from './AuthForm'
 
-import LoginMutation from '../mutations/Login'
+
 
 class SignupForm extends Component {
 

@@ -36,7 +36,7 @@ class Header extends Component {
 
     if(user) {
       return (
-        <Grid.Column>
+        <Grid.Column textAlign='right'>
           <Link to={ Logout }>
             <Button 
               inverted 
@@ -49,7 +49,7 @@ class Header extends Component {
       )
     } else {
       return (
-        <Grid.Column align='right'> 
+        <Grid.Column textAlign='right'> 
           <Link to={ Signup }>
             <Button inverted>
               Sign Up

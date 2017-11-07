@@ -1,13 +1,26 @@
 import React, { Component } from 'react'
 import { Header, Segment } from 'semantic-ui-react';
 
+import { graphql } from 'react-apollo'
+
 import AuthForm from './AuthForm'
 
 import LoginMutation from '../mutations/Login'
 
 class SignupForm extends Component {
 
-  handleSubmit = () => {
+  handleSubmit = (formData) => {
+    const { username, password } = formData
+
+    this.props.mutate({
+      variables: { 
+        email: username,
+        password: password
+      }
+    }).then((data) => {
+      console.log('data', data);
+    })
+
     this.handleSubmit
   }
 
@@ -26,4 +39,4 @@ class SignupForm extends Component {
   }
 }
 
-export default SignupForm
+export default graphql(LoginMutation)(SignupForm)

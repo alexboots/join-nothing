@@ -27,14 +27,14 @@ class AuthForm extends Component {
     this.setState({ checked })
   }
 
-  handleSubmit = (e, data) => {
+  handleSubmit = () => {
     const { username, password } = this.state
-    this.props.handleSubmit()
+    this.props.handleSubmit(this.state)
   }
 
   render() {
-    console.log('this.state', this.state);
     const { submitBtnText } = this.props
+
     return(
       <Form onSubmit={ this.handleSubmit }  inverted loading={ false }>
         <Form.Group widths="equal">
