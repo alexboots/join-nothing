@@ -51,7 +51,7 @@ class SignupForm extends Component {
     }
 
     if(user) {
-      return null
+      return (<Segment inverted textAlign="right"><h1>👏</h1></Segment>)
     }
 
     return(
