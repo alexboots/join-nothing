@@ -8,6 +8,9 @@ import AuthForm from './AuthForm'
 import GetUser from '../../queries/GetUser'
 import LoginMutation from '../../mutations/Login'
 
+import { DashboardRoute } from '../../routes'
+
+
 class LoginForm extends Component {
   constructor(props) {
     super(props)
@@ -25,9 +28,13 @@ class LoginForm extends Component {
         password: password
       },
       refetchQueries: [{ query: GetUser }]
-    }).catch(error => {
+    })
+    .then(data => {
+      this.props.history.push(DashboardRoute)
+    })
+    .catch(error => {
       const { graphQLErrors } = error
-      
+      console.log('why', error);
       let errors = graphQLErrors.map((error) => {
         return error.message
       });

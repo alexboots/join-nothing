@@ -7,14 +7,13 @@ import { ApolloProvider } from 'react-apollo'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-import routes from './routes'
-const { Signup, Logout, Login } = routes
+import { HomeRoute, DashboardRoute, LoginRoute, SignupRoute } from './routes'
 
 import App from './components/App'
 import Navbar from './components/Navbar'
 import LoginContainer from './components/AuthForm/LoginContainer'
 import SignupContainer from './components/AuthForm/SignupContainer'
-import UserLoggedIn from './components/UserLoggedIn'
+import LoggedIn from './components/LoggedIn'
 
 import GetUser from './queries/GetUser'
 
@@ -33,11 +32,12 @@ const Root = () => {
     <ApolloProvider client={ client }>
       <BrowserRouter>
         <App>
-          <Navbar />
-          <UserLoggedIn />
+          <Route path={ HomeRoute } component={ Navbar } />
+          
 
-          <Route path={ Login } component={ LoginContainer } />
-          <Route path={ Signup } component={ SignupContainer } />
+          <Route path={ DashboardRoute } component={ LoggedIn } />
+          <Route path={ LoginRoute } component={ LoginContainer } />
+          <Route path={ SignupRoute } component={ SignupContainer } />
         </App>
       </BrowserRouter>
     </ApolloProvider>

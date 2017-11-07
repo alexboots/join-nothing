@@ -9,8 +9,13 @@ import GetUser   from '../queries/GetUser'
 import Login from '../mutations/Login'
 import Logout    from '../mutations/Logout'
 
-import routes from '../routes'
-
+import { 
+  HomeRoute, 
+  LoginRoute, 
+  LogoutRoute, 
+  SignupRoute, 
+  DashboardRoute 
+} from '../routes'
 
 class Header extends Component {
 
@@ -18,18 +23,31 @@ class Header extends Component {
     this.props.mutate({
       refetchQueries: [{ query: GetUser }]
     }).then(response => {
-      console.log('response', response)
+      this.props.history.push(HomeRoute)
     })
   }
 
-  renderButtons() {
+  renderDashboardButton () {
     const { user } = this.props.data 
-    const { Login, Signup, Logout } = routes
+    console.log('user', user);
+    if(user) {
+      return (
+        <Link to={ DashboardRoute }>
+          <Button inverted>
+            Dashboard
+          </Button>
+        </Link>
+      )
+    }
+  }
+
+  renderActionButtons() {
+    const { user } = this.props.data 
 
     if(user) {
       return (
         <Grid.Column textAlign='right'>
-          <Link to={ Logout }>
+          <Link to={ LogoutRoute }>
             <Button 
               inverted 
               onClick={ this.handleLogout }
@@ -42,7 +60,7 @@ class Header extends Component {
     } else {
       return (
         <Grid.Column textAlign='right'> 
-          <Link to={ Signup }>
+          <Link to={ SignupRoute }>
             <Button 
               inverted
               className='btn-nav-sign-up'
@@ -50,7 +68,7 @@ class Header extends Component {
               Sign Up
             </Button>
           </Link>
-          <Link to={ Login }>
+          <Link to={ LoginRoute }>
             <Button inverted>
               Log In
             </Button>
@@ -61,8 +79,7 @@ class Header extends Component {
   }
 
   render() {
-    const { loading } = this.props.data
-    const { Home } = routes
+    const { loading, user } = this.props.data
 
 
     if(loading) {
@@ -74,15 +91,16 @@ class Header extends Component {
         <Grid.Row>
           <Grid.Column>
 
-            <Link to={ Home }>
+            <Link to={ HomeRoute }>
               <Button inverted>
                 Home
               </Button>
             </Link>
-
+            
+            { this.renderDashboardButton() }
           </Grid.Column>
           
-          { this.renderButtons() }
+          { this.renderActionButtons() }
         </Grid.Row>
       </Grid>
     )

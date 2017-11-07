@@ -4,10 +4,11 @@ import { Header, Segment, Loader } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo'
 
 import AuthForm from './AuthForm'
-import UserLoggedIn from '../UserLoggedIn'
 
 import GetUser from '../../queries/GetUser'
 import SignupMutation from '../../mutations/Signup'
+
+import { DashboardRoute } from '../../routes'
 
 class SignupForm extends Component {
   constructor(props) {
@@ -19,13 +20,18 @@ class SignupForm extends Component {
 
   handleSubmit = (formData) => {
     const { username, password } = formData
+
     this.props.mutate({
       variables: { 
         username: username,
         password: password
       },
       refetchQueries: [{ query: GetUser }]
-    }).catch(error => {
+    })
+    .then(data => {
+      this.props.history.push(DashboardRoute)
+    })
+    .catch(error => {
       const { graphQLErrors } = error
       
       let errors = graphQLErrors.map((error) => {
@@ -48,15 +54,14 @@ class SignupForm extends Component {
       return null
     }
 
-
     return(
       <Segment inverted>
-        <Header as='h3'>
+        <Header as="h3">
           Sign up
         </Header>
         <AuthForm 
           handleSubmit={ this.handleSubmit } 
-          submitBtnText='Sign Up' 
+          submitBtnText="Sign Up" 
           errors={ this.state.errors }
         />
       </Segment>

@@ -5,7 +5,16 @@ import { Header, Segment } from 'semantic-ui-react';
 import ApolloClient from 'apollo-client'
 import GetUser from '../queries/GetUser'
 
-class UserLoggedIn extends Component {
+class LoggedIn extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    if(nextProps.data.user) {
+      return true 
+    } else {
+      return false
+    }
+  }
+
   render() {
     const { data } = this.props
     const { user } = data
@@ -25,4 +34,4 @@ class UserLoggedIn extends Component {
   }
 }
 
-export default graphql(GetUser)(UserLoggedIn)
+export default graphql(GetUser)(LoggedIn)

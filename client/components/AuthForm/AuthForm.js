@@ -33,20 +33,28 @@ class AuthForm extends Component {
   }
 
   renderErrors = () => {
-    return this.props.errors.map((error) => {
-      return (
-        <Message
-          error
-          header="🔥"
-          content={ error }
-        />
-      )
-    })
+    console.log('this.props.errors', this.props.errors);
+    console.log('this.props.errors', this.props.errors.length);
+    if(this.props.errors.length) {
+      return this.props.errors.map((error, i) => {
+        return (
+          <Message
+            error
+            key={ i }
+            header="🔥"
+            content={ error }
+          />
+        )
+      })
+    } else {
+      return null
+    }
   }
 
   render() {
     const { submitBtnText } = this.props
-
+    console.log('this.props.errors', this.props.errors);
+    console.log('this.props.errors.length', this.props.errors.length);
     return(
       <Form 
         error={ this.props.errors.length ? true : false }
@@ -57,13 +65,13 @@ class AuthForm extends Component {
         <Form.Group widths="equal">
           <Form.Input 
             required
-            placeholder='username'
+            placeholder="username"
             type="input"
             onChange={ this.handleUsernameChange }
           />
           <Form.Input 
             required
-            placeholder='password'
+            placeholder="password"
             type="password" 
             onChange={ this.handlePasswordChange }
           />
