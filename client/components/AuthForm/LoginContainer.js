@@ -34,7 +34,7 @@ class LoginForm extends Component {
     })
     .catch(error => {
       const { graphQLErrors } = error
-      console.log('why', error);
+
       let errors = graphQLErrors.map((error) => {
         return error.message
       });

@@ -33,8 +33,6 @@ class AuthForm extends Component {
   }
 
   renderErrors = () => {
-    console.log('this.props.errors', this.props.errors);
-    console.log('this.props.errors', this.props.errors.length);
     if(this.props.errors.length) {
       return this.props.errors.map((error, i) => {
         return (
@@ -53,8 +51,7 @@ class AuthForm extends Component {
 
   render() {
     const { submitBtnText } = this.props
-    console.log('this.props.errors', this.props.errors);
-    console.log('this.props.errors.length', this.props.errors.length);
+
     return(
       <Form 
         error={ this.props.errors.length ? true : false }

@@ -29,7 +29,7 @@ class Header extends Component {
 
   renderDashboardButton () {
     const { user } = this.props.data 
-    console.log('user', user);
+
     if(user) {
       return (
         <Link to={ DashboardRoute }>
