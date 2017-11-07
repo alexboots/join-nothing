@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 
 import { Container, Segment } from 'semantic-ui-react';
-
-import Navbar from './Navbar'
 
 class App extends Component {
   render() {
     const { children } = this.props
     
-
     return (
       <Container>
         <Segment inverted>
-          <Navbar />
           { children }
         </Segment>
       </Container>

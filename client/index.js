@@ -8,12 +8,13 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import routes from './routes'
-const { Home, Signup, Logout, Login } = routes
+const { Signup, Logout, Login } = routes
 
 import App from './components/App'
+import Navbar from './components/Navbar'
+import LoginContainer from './components/AuthForm/LoginContainer'
+import SignupContainer from './components/AuthForm/SignupContainer'
 
-import AuthFormContainerLogin from './components/AuthForm/LoginContainer'
-import AuthFormContainerSignup from './components/AuthForm/SignupContainer'
 
 const link = createHttpLink({
   uri: '/graphql',
@@ -30,8 +31,9 @@ const Root = () => {
     <ApolloProvider client={ client }>
       <BrowserRouter>
         <App>
-          <Route path={ Login } component={ AuthFormContainerLogin } />
-          <Route path={ Signup } component={ AuthFormContainerSignup } />
+          <Navbar />
+          <Route path={ Login } component={ LoginContainer } />
+          <Route path={ Signup } component={ SignupContainer } />
           { /* Todo: Add catch all / 404 path because server doens't hadnle routes */ }
         </App>
       </BrowserRouter>
