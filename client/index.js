@@ -14,17 +14,19 @@ import App from './components/App'
 import Navbar from './components/Navbar'
 import LoginContainer from './components/AuthForm/LoginContainer'
 import SignupContainer from './components/AuthForm/SignupContainer'
+import UserLoggedIn from './components/UserLoggedIn'
 
+import GetUser from './queries/GetUser'
 
 const link = createHttpLink({
   uri: '/graphql',
   credentials: 'same-origin'
-});
+})
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link
-});
+})
 
 const Root = () => {
   return (
@@ -32,9 +34,10 @@ const Root = () => {
       <BrowserRouter>
         <App>
           <Navbar />
+          <UserLoggedIn />
+
           <Route path={ Login } component={ LoginContainer } />
           <Route path={ Signup } component={ SignupContainer } />
-          { /* Todo: Add catch all / 404 path because server doens't hadnle routes */ }
         </App>
       </BrowserRouter>
     </ApolloProvider>

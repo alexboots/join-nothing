@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Checkbox, Form, Message } from 'semantic-ui-react'
 
 class AuthForm extends Component {
   constructor(props) {
@@ -32,11 +32,28 @@ class AuthForm extends Component {
     this.props.handleSubmit(this.state)
   }
 
+  renderErrors = () => {
+    return this.props.errors.map((error) => {
+      return (
+        <Message
+          error
+          header="🔥"
+          content={ error }
+        />
+      )
+    })
+  }
+
   render() {
     const { submitBtnText } = this.props
 
     return(
-      <Form onSubmit={ this.handleSubmit }  inverted loading={ false }>
+      <Form 
+        error={ this.props.errors.length ? true : false }
+        inverted 
+        loading={ false }
+        onSubmit={ this.handleSubmit }  
+      >
         <Form.Group widths="equal">
           <Form.Input 
             required
@@ -55,6 +72,9 @@ class AuthForm extends Component {
           label="I don't agree to any Terms and Conditions" 
           onChange={ this.handleCheckboxChange }
         />
+        
+        { this.renderErrors() }
+
         <Button 
           inverted 
           type="submit"

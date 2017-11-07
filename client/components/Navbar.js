@@ -14,20 +14,12 @@ import routes from '../routes'
 
 class Header extends Component {
 
-  handleLogin = () => {
-    
-  }
-
   handleLogout = () => {
     this.props.mutate({
       refetchQueries: [{ query: GetUser }]
     }).then(response => {
       console.log('response', response)
     })
-  }
-
-  handleSignUp = () => {
-
   }
 
   renderButtons() {

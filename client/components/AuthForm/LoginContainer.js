@@ -4,12 +4,17 @@ import { Header, Segment, Loader } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo'
 
 import AuthForm from './AuthForm'
-import UserLoggedIn from '../UserLoggedIn'
 
 import GetUser from '../../queries/GetUser'
 import LoginMutation from '../../mutations/Login'
 
 class LoginForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      errors: []
+    }
+  }
 
   handleSubmit = (formData) => {
     const { username, password } = formData
@@ -20,8 +25,14 @@ class LoginForm extends Component {
         password: password
       },
       refetchQueries: [{ query: GetUser }]
-    }).then((data) => {
-      console.log('data', data);
+    }).catch(error => {
+      const { graphQLErrors } = error
+      
+      let errors = graphQLErrors.map((error) => {
+        return error.message
+      });
+
+      this.setState({ errors })
     })
   }
 
@@ -34,7 +45,7 @@ class LoginForm extends Component {
     }
 
     if(user) {
-      return (<UserLoggedIn user={ user }/>)
+      return null
     }
 
     return(
@@ -45,6 +56,7 @@ class LoginForm extends Component {
         <AuthForm 
           handleSubmit={ this.handleSubmit } 
           submitBtnText='Log in' 
+          errors={ this.state.errors }
         />
       </Segment>
     )

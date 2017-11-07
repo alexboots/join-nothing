@@ -10,6 +10,12 @@ import GetUser from '../../queries/GetUser'
 import SignupMutation from '../../mutations/Signup'
 
 class SignupForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      errors: []
+    }
+  }
 
   handleSubmit = (formData) => {
     const { username, password } = formData
@@ -19,8 +25,14 @@ class SignupForm extends Component {
         password: password
       },
       refetchQueries: [{ query: GetUser }]
-    }).then((data) => {
-      console.log('data', data);
+    }).catch(error => {
+      const { graphQLErrors } = error
+      
+      let errors = graphQLErrors.map((error) => {
+        return error.message
+      });
+
+      this.setState({ errors })
     })
   }
 
@@ -33,8 +45,9 @@ class SignupForm extends Component {
     }
 
     if(user) {
-      return (<UserLoggedIn user={ user }/>)
+      return null
     }
+
 
     return(
       <Segment inverted>
@@ -44,6 +57,7 @@ class SignupForm extends Component {
         <AuthForm 
           handleSubmit={ this.handleSubmit } 
           submitBtnText='Sign Up' 
+          errors={ this.state.errors }
         />
       </Segment>
     )
