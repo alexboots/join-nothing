@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 
 import { Container, Segment } from 'semantic-ui-react';
 
-import Header from './Header'
-
-
+import Navbar from './Navbar'
 
 class App extends Component {
   render() {
@@ -12,10 +10,12 @@ class App extends Component {
     
 
     return (
-      <div>
-        <Header />
-        { children }
-      </div>
+      <Container>
+        <Segment inverted>
+          <Navbar />
+          { children }
+        </Segment>
+      </Container>
     )
   } 
 }

@@ -12,7 +12,6 @@ const { Home, Signup, Logout, Login } = routes
 
 import App from './components/App'
 
-import AuthForm from './components/AuthForm'
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 
@@ -31,7 +30,6 @@ const Root = () => {
     <ApolloProvider client={ client }>
       <BrowserRouter>
         <App>
-          <Route path={ '/' } component={ AuthForm } />
           <Route path={ Login } component={ LoginForm } />
           <Route path={ Signup } component={ SignupForm } />
           { /* Todo: Add catch all / 404 path because server doens't hadnle routes */ }

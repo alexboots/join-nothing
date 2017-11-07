@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Loader, List } from 'semantic-ui-react';
+import { Button, Loader, Grid } from 'semantic-ui-react';
 
 import { graphql, compose } from 'react-apollo'
 
@@ -15,7 +15,7 @@ import routes from '../routes'
 class Header extends Component {
 
   handleLogin = () => {
-
+    
   }
 
   handleLogout = () => {
@@ -36,33 +36,31 @@ class Header extends Component {
 
     if(user) {
       return (
-        <Link to={ Logout }>
-          <List.Item>
-            <Button onClick={ this.handleLogout }>
+        <Grid.Column>
+          <Link to={ Logout }>
+            <Button 
+              inverted 
+              onClick={ this.handleLogout }
+            >
               Log Out
             </Button>
-          </List.Item>
-        </Link>
+          </Link>
+        </Grid.Column>
       )
     } else {
       return (
-        <div>
-          <Link to={ Login }>
-            <List.Item>
-              <Button>
-                Log In
-              </Button>
-            </List.Item>
-          </Link>
-
+        <Grid.Column align='right'> 
           <Link to={ Signup }>
-            <List.Item>
-              <Button>
-                Sign Up
-              </Button>
-            </List.Item>
+            <Button inverted>
+              Sign Up
+            </Button>
           </Link>
-        </div>
+          <Link to={ Login }>
+            <Button inverted>
+              Log In
+            </Button>
+          </Link>
+        </Grid.Column>
       )
     }
   }
@@ -77,14 +75,21 @@ class Header extends Component {
     }
 
     return (
-      <List link horizontal>
-        <Link to={ Home }>
-          <List.Item>
-            <Button>Home</Button>
-          </List.Item>
-        </Link>
-        { this.renderButtons() }
-      </List>
+      <Grid padded columns={ 2 }>
+        <Grid.Row>
+          <Grid.Column>
+
+            <Link to={ Home }>
+              <Button inverted>
+                Home
+              </Button>
+            </Link>
+
+          </Grid.Column>
+          
+          { this.renderButtons() }
+        </Grid.Row>
+      </Grid>
     )
   }
 }

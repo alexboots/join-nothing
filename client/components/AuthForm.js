@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Checkbox, Form, Segment } from 'semantic-ui-react'
+import { Button, Checkbox, Form } from 'semantic-ui-react'
 
 class AuthForm extends Component {
   constructor(props) {
@@ -29,37 +29,39 @@ class AuthForm extends Component {
 
   handleSubmit = (e, data) => {
     const { username, password } = this.state
-    // Call mutation
+    this.props.handleSubmit()
   }
 
   render() {
     console.log('this.state', this.state);
+    const { submitBtnText } = this.props
     return(
-      <Segment inverted>
-        <Form onSubmit={ this.handleSubmit } inverted loading={ false }>
-          <Form.Group widths="equal">
-            <Form.Input 
-              required
-              label="Username" 
-              type="input"
-              onChange={ this.handleEmailChange }
-            />
-            <Form.Input 
-              required
-              label="Password" 
-              type="password" 
-              onChange={ this.handlePasswordChange }
-            />
-          </Form.Group>
-          <Form.Checkbox 
-            label="I don't agree to any Terms and Conditions" 
-            onChange={ this.handleCheckboxChange }
+      <Form onSubmit={ this.handleSubmit }  inverted loading={ false }>
+        <Form.Group widths="equal">
+          <Form.Input 
+            required
+            label="Username" 
+            type="input"
+            onChange={ this.handleEmailChange }
           />
-          <Button type="submit">
-            Submit
-          </Button>
-        </Form>
-      </Segment>
+          <Form.Input 
+            required
+            label="Password" 
+            type="password" 
+            onChange={ this.handlePasswordChange }
+          />
+        </Form.Group>
+        <Form.Checkbox 
+          label="I don't agree to any Terms and Conditions" 
+          onChange={ this.handleCheckboxChange }
+        />
+        <Button 
+          inverted 
+          type="submit"
+        >
+          { submitBtnText }
+        </Button>
+      </Form>
     )
   }
 }

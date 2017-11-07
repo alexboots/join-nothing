@@ -1,11 +1,29 @@
 import React, { Component } from 'react'
+import { Header, Segment } from 'semantic-ui-react';
 
-class LoginForm extends Component {
+import AuthForm from './AuthForm'
+
+import LoginMutation from '../mutations/Login'
+
+class SignupForm extends Component {
+
+  handleSubmit = () => {
+    this.handleSubmit
+  }
+
   render() {
     return(
-      <div>HELLO I AM ALIVE</div>
+      <Segment inverted>
+        <Header as='h3'>
+          Log in
+        </Header>
+        <AuthForm 
+          handleSubmit={ this.handleSubmit } 
+          submitBtnText='Log in' 
+        />
+      </Segment>
     )
   }
 }
 
-export default LoginForm
+export default SignupForm
