@@ -1,11 +1,30 @@
 <!doctype>
 <html>
 <head>
+  <title></title>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
   <style>
     /* uhhh ignore me doing css here thanks <3 */
     body {
       background: #1b1c1d;
+    }
+
+    @media only screen and (min-width: 1200px) {
+      .ui.container {
+        width: 630px;
+      }
+    }
+
+    @media only screen and (max-width: 1199px) and (min-width: 992px) {
+      .ui.container {
+        width: 630px;
+      }
+    }
+
+    @media only screen and (max-width: 767px) {
+      .ui.button.btn-nav-sign-up {
+        margin-bottom: 10px;
+      }
     }
   </style>
 </head>

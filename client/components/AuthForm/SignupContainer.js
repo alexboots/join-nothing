@@ -5,13 +5,12 @@ import { graphql } from 'react-apollo'
 
 import AuthForm from './AuthForm'
 
-import LoginMutation from '../mutations/Login'
+import SignupMutation from '../../mutations/Signup'
 
 class SignupForm extends Component {
 
   handleSubmit = (formData) => {
     const { username, password } = formData
-
     this.props.mutate({
       variables: { 
         email: username,
@@ -20,23 +19,21 @@ class SignupForm extends Component {
     }).then((data) => {
       console.log('data', data);
     })
-
-    this.handleSubmit
   }
 
   render() {
     return(
       <Segment inverted>
         <Header as='h3'>
-          Log in
+          Sign up
         </Header>
         <AuthForm 
           handleSubmit={ this.handleSubmit } 
-          submitBtnText='Log in' 
+          submitBtnText='Sign Up' 
         />
       </Segment>
     )
   }
 }
 
-export default graphql(LoginMutation)(SignupForm)
+export default graphql(SignupMutation)(SignupForm)

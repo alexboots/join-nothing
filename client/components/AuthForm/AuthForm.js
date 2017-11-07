@@ -40,13 +40,13 @@ class AuthForm extends Component {
         <Form.Group widths="equal">
           <Form.Input 
             required
-            label="Username" 
+            placeholder='username'
             type="input"
             onChange={ this.handleEmailChange }
           />
           <Form.Input 
             required
-            label="Password" 
+            placeholder='password'
             type="password" 
             onChange={ this.handlePasswordChange }
           />

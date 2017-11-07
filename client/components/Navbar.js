@@ -51,7 +51,10 @@ class Header extends Component {
       return (
         <Grid.Column textAlign='right'> 
           <Link to={ Signup }>
-            <Button inverted>
+            <Button 
+              inverted
+              className='btn-nav-sign-up'
+            >
               Sign Up
             </Button>
           </Link>

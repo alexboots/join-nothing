@@ -12,8 +12,8 @@ const { Home, Signup, Logout, Login } = routes
 
 import App from './components/App'
 
-import LoginForm from './components/LoginForm'
-import SignupForm from './components/SignupForm'
+import AuthFormContainerLogin from './components/AuthForm/LoginContainer'
+import AuthFormContainerSignup from './components/AuthForm/SignupContainer'
 
 const link = createHttpLink({
   uri: '/graphql',
@@ -30,8 +30,8 @@ const Root = () => {
     <ApolloProvider client={ client }>
       <BrowserRouter>
         <App>
-          <Route path={ Login } component={ LoginForm } />
-          <Route path={ Signup } component={ SignupForm } />
+          <Route path={ Login } component={ AuthFormContainerLogin } />
+          <Route path={ Signup } component={ AuthFormContainerSignup } />
           { /* Todo: Add catch all / 404 path because server doens't hadnle routes */ }
         </App>
       </BrowserRouter>
