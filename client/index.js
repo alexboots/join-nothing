@@ -13,7 +13,9 @@ import App from './components/App'
 import Navbar from './components/Navbar'
 import LoginContainer from './components/AuthForm/LoginContainer'
 import SignupContainer from './components/AuthForm/SignupContainer'
-import LoggedIn from './components/LoggedIn'
+import Dashboard from './components/Dashboard'
+
+import requireAuthHOC from './components/requireAuthHOC'
 
 import GetUser from './queries/GetUser'
 
@@ -34,7 +36,7 @@ const Root = () => {
         <App>
           <Route path={ HomeRoute } component={ Navbar } />
           
-          <Route path={ DashboardRoute } component={ LoggedIn } />
+          <Route path={ DashboardRoute } component={ requireAuthHOC(Dashboard) } />
           <Route path={ LoginRoute } component={ LoginContainer } />
           <Route path={ SignupRoute } component={ SignupContainer } />
         </App>

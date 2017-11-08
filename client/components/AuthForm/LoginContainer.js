@@ -10,12 +10,17 @@ import LoginMutation from '../../mutations/Login'
 
 import { DashboardRoute } from '../../routes'
 
-
 class LoginForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       errors: []
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    if(!this.props.data.user && nextProps.data.user) {
+      this.props.history.push(DashboardRoute)
     }
   }
 
@@ -28,9 +33,6 @@ class LoginForm extends Component {
         password: password
       },
       refetchQueries: [{ query: GetUser }]
-    })
-    .then(data => {
-      this.props.history.push(DashboardRoute)
     })
     .catch(error => {
       const { graphQLErrors } = error

@@ -55,7 +55,7 @@ app.use(passport.session());
 app.use('/graphql', expressGraphQL({
   schema,
   graphiql: true
-}));
+}))
 
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and

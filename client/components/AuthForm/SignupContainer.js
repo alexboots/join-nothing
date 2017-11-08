@@ -18,6 +18,12 @@ class SignupForm extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    if(!this.props.data.user && nextProps.data.user) {
+      this.props.history.push(DashboardRoute)
+    }
+  }
+
   handleSubmit = (formData) => {
     const { username, password } = formData
 
@@ -27,9 +33,6 @@ class SignupForm extends Component {
         password: password
       },
       refetchQueries: [{ query: GetUser }]
-    })
-    .then(data => {
-      this.props.history.push(DashboardRoute)
     })
     .catch(error => {
       const { graphQLErrors } = error
