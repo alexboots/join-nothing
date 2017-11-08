@@ -34,7 +34,6 @@ const Root = () => {
         <App>
           <Route path={ HomeRoute } component={ Navbar } />
           
-
           <Route path={ DashboardRoute } component={ LoggedIn } />
           <Route path={ LoginRoute } component={ LoginContainer } />
           <Route path={ SignupRoute } component={ SignupContainer } />

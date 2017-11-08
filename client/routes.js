@@ -4,4 +4,4 @@ export const HomeRoute   = `${Home}`
 export const SignupRoute = `${Home}signup`
 export const LogoutRoute = `${Home}logout`
 export const LoginRoute  = `${Home}login`
-export const DashboardRoute = `${Home}Dashboard`
+export const DashboardRoute = `${Home}dashboard`
