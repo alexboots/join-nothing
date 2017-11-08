@@ -11,8 +11,8 @@ import { HomeRoute, DashboardRoute, LoginRoute, SignupRoute } from './routes'
 
 import App from './components/App'
 import Navbar from './components/Navbar'
-import LoginContainer from './components/AuthForm/LoginContainer'
-import SignupContainer from './components/AuthForm/SignupContainer'
+
+import AuthFormContainer from './components/AuthForm/AuthFormContainer'
 import Dashboard from './components/Dashboard'
 
 import requireAuthHOC from './components/requireAuthHOC'
@@ -37,8 +37,8 @@ const Root = () => {
           <Route path={ HomeRoute } component={ Navbar } />
           
           <Route path={ DashboardRoute } component={ requireAuthHOC(Dashboard) } />
-          <Route path={ LoginRoute } component={ LoginContainer } />
-          <Route path={ SignupRoute } component={ SignupContainer } />
+          <Route path={ LoginRoute } component={ AuthFormContainer } />
+          <Route path={ SignupRoute } component={ AuthFormContainer } />
         </App>
       </BrowserRouter>
     </ApolloProvider>

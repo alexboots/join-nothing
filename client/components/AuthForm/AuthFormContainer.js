@@ -6,15 +6,19 @@ import { graphql, compose } from 'react-apollo'
 import AuthForm from './AuthForm'
 
 import GetUser from '../../queries/GetUser'
+import LoginMutation from '../../mutations/Login'
 import SignupMutation from '../../mutations/Signup'
 
-import { DashboardRoute } from '../../routes'
+import { DashboardRoute, LoginRoute, SignupRoute } from '../../routes'
 
-class SignupForm extends Component {
+class AuthFormContainer extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      errors: []
+      errors: [],
+      loginForm: (props.match.url === LoginRoute) ?  true : false,
+      signupForm: (props.match.url === SignupRoute) ?  true : false
     }
   }
 
@@ -27,7 +31,23 @@ class SignupForm extends Component {
   handleSubmit = (formData) => {
     const { username, password } = formData
 
-    this.props.mutate({
+    let mutationToPerform
+
+    if(this.state.loginForm) {
+
+      mutationToPerform = 'LoginMutation'
+
+    } else if(this.state.signupForm) {
+
+      mutationToPerform = 'SignupMutation'
+
+    } else {
+
+      console.error('Uhhhmmmmm this route does not have a form associated with it!')
+      return null
+    }
+
+    this.props[mutationToPerform]({
       variables: { 
         username: username,
         password: password
@@ -36,7 +56,7 @@ class SignupForm extends Component {
     })
     .catch(error => {
       const { graphQLErrors } = error
-      
+
       let errors = graphQLErrors.map((error) => {
         return error.message
       });
@@ -53,18 +73,22 @@ class SignupForm extends Component {
       return (<Loader active />)
     }
 
-    if(user) {
-      return (<Segment inverted textAlign="right"><h1>👏</h1></Segment>)
+    let formText
+    if(this.state.loginForm) {
+      formText = 'Log in'
+    } else if(this.state.signupForm) {
+      formText = 'Sign up'
     }
 
     return(
       <Segment inverted>
-        <Header as="h3">
-          Sign up
+        <Header as='h3'>
+          { formText }
         </Header>
         <AuthForm 
+          loginForm={ this.state.loginForm }
           handleSubmit={ this.handleSubmit } 
-          submitBtnText="Sign Up" 
+          submitBtnText={ formText }
           errors={ this.state.errors }
         />
       </Segment>
@@ -74,5 +98,6 @@ class SignupForm extends Component {
 
 export default compose(
   graphql(GetUser),
-  graphql(SignupMutation)
-)(SignupForm)
+  graphql(LoginMutation, { name: 'LoginMutation' }),
+  graphql(SignupMutation, { name: 'SignupMutation' })
+)(AuthFormContainer)

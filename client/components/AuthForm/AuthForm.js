@@ -73,10 +73,15 @@ class AuthForm extends Component {
             onChange={ this.handlePasswordChange }
           />
         </Form.Group>
-        <Form.Checkbox 
-          label="I don't agree to any Terms and Conditions" 
-          onChange={ this.handleCheckboxChange }
-        />
+
+        { this.props.loginForm ? null : 
+            (
+              <Form.Checkbox 
+                label="I don't agree to any Terms and Conditions" 
+                onChange={ this.handleCheckboxChange }
+              />
+            )
+        }
         
         { this.renderErrors() }
 
