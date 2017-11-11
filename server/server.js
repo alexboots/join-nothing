@@ -60,14 +60,25 @@ app.use('/graphql', expressGraphQL({
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
 // a single bundle.js output of all of our client side Javascript
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const webpackConfig = require('../webpack.config.js');
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
+if(process.env.NODE_ENV === "dev") {
+  const webpackMiddleware = require('webpack-dev-middleware');
+  const webpack = require('webpack');
+  const webpackConfig = require('../webpack.config.js');
+  app.use(webpackMiddleware(webpack(webpackConfig)));
+}
+
+
+if(process.env.NODE_ENV === "production") {
+  // Need to set up a real build process here
+  app.use('/bundle.js', function(req, res) {
+    res.sendFile(path.join(__dirname+'/../dist/bundle.js'));
+  });
+}
 
 app.use('*', function(req, res) {
   res.sendFile(path.join(__dirname+'/../client/index.html'));
 });
+
 
 module.exports = app;
