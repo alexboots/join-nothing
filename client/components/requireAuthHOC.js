@@ -23,7 +23,6 @@ export default (WrapperComponent) => {
         // don't try and resolve component
         return null
       }
-      
     } 
   }
 
