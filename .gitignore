@@ -1,4 +1,3 @@
 .DS_Store
 node_modules
-secret_mlab_url.js
 dist
