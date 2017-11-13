@@ -13,9 +13,8 @@ const schema = require('./schema/schema');
 // Create a new Express application
 const app = express();
 
-
-
 const prod_user = require('./secret_mlab_url')
+
 // Replace with your mongoLab URI
 const MONGO_URI = prod_user;
 
