@@ -13,9 +13,6 @@ const schema = require('./schema/schema');
 // Create a new Express application
 const app = express();
 
-
-
-
 // Replace with your mongoLab URI
 const MONGO_URI = 'mongodb://asdf:asdf@ds231715.mlab.com:31715/join-nothing';
 
