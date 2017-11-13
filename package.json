@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=dev nodemon index.js --ignore client",
-    "start": "NODE_ENV=production node index.js",
+    "start": "npm run build && NODE_ENV=production node index.js",
     "build": "webpack"
   },
   "author": "'Alex' 'Hays'",

@@ -68,9 +68,14 @@ if(process.env.NODE_ENV === "dev") {
   app.use(webpackMiddleware(webpack(webpackConfig)));
 }
 
+console.log("\n\n");
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('__dirname', __dirname);
+console.log("\n\n");
 
 if(process.env.NODE_ENV === "production") {
   // Need to set up a real build process here
+  console.log("path.join(__dirname+'/../dist/bundle.js')", path.join(__dirname+'/../dist/bundle.js'));
   app.use('/bundle.js', function(req, res) {
     res.sendFile(path.join(__dirname+'/../dist/bundle.js'));
   });
