@@ -15,9 +15,9 @@ const app = express();
 
 
 
-
+const prod_user = require('./secret_mlab_url')
 // Replace with your mongoLab URI
-const MONGO_URI = 'mongodb://asdf:asdf@ds231715.mlab.com:31715/join-nothing';
+const MONGO_URI = prod_user;
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
@@ -68,14 +68,9 @@ if(process.env.NODE_ENV === "dev") {
   app.use(webpackMiddleware(webpack(webpackConfig)));
 }
 
-console.log("\n\n");
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-console.log('__dirname', __dirname);
-console.log("\n\n");
 
 if(process.env.NODE_ENV === "production") {
   // Need to set up a real build process here
-  console.log("path.join(__dirname+'/../dist/bundle.js')", path.join(__dirname+'/../dist/bundle.js'));
   app.use('/bundle.js', function(req, res) {
     res.sendFile(path.join(__dirname+'/../dist/bundle.js'));
   });
