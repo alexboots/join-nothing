@@ -12,7 +12,6 @@ import Logout    from '../mutations/Logout'
 import { 
   HomeRoute, 
   LoginRoute, 
-  LogoutRoute, 
   SignupRoute, 
   DashboardRoute 
 } from '../routes'
@@ -47,14 +46,12 @@ class Header extends Component {
     if(user) {
       return (
         <Grid.Column textAlign='right'>
-          <Link to={ LogoutRoute }>
-            <Button 
-              inverted 
-              onClick={ this.handleLogout }
-            >
-              Log Out
-            </Button>
-          </Link>
+          <Button 
+            inverted 
+            onClick={ this.handleLogout }
+          >
+            Log Out
+          </Button>
         </Grid.Column>
       )
     } else {
