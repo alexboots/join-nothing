@@ -54,9 +54,13 @@ class AuthForm extends Component {
 
   render() {
     const { submitBtnText, touched, errors, isSubmitting } = this.props
+
+    // To use isSubmitting, need to set it back to false after
+    //  graphql request is complete, see: https://github.com/jaredpalmer/formik#form
     return(
       <Form>
         <SemanticUiForm
+          loading={ false }
           as="div"
           error={ this.props.submissionErrors.length ? true : false }
           inverted
