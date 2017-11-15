@@ -3,6 +3,9 @@ import { Header, Segment, Loader } from 'semantic-ui-react';
 
 import { graphql, compose } from 'react-apollo'
 
+import { Formik } from 'formik'
+import yup from 'yup'
+
 import AuthForm from './AuthForm'
 
 import GetUser from '../../queries/GetUser'
@@ -16,7 +19,7 @@ class AuthFormContainer extends Component {
     super(props)
 
     this.state = {
-      errors: [],
+      submissionErrors: [],
       loginForm: (props.match.url === LoginRoute) ?  true : false,
       signupForm: (props.match.url === SignupRoute) ?  true : false
     }
@@ -28,8 +31,8 @@ class AuthFormContainer extends Component {
     }
   }
 
-  handleSubmit = (formData) => {
-    const { username, password } = formData
+  handleSubmit = (values, formikBag) => {
+    const { username, password } = values
 
     let mutationToPerform
 
@@ -57,11 +60,18 @@ class AuthFormContainer extends Component {
     .catch(error => {
       const { graphQLErrors } = error
 
-      let errors = graphQLErrors.map((error) => {
+      let submissionErrors = graphQLErrors.map((error) => {
         return error.message
-      });
+      })
 
-      this.setState({ errors })
+      this.setState({ submissionErrors })
+    })
+  }
+
+  getValidationSchema = () => {
+    return yup.object().shape({
+      username: yup.string().required('Required'),
+      password: yup.string().required('Required')
     })
   }
 
@@ -80,17 +90,30 @@ class AuthFormContainer extends Component {
       formText = 'Sign up'
     }
 
+    const initialValues = {
+      username: '',
+      password: ''
+    }
+  
     return(
       <Segment inverted>
         <Header as='h3'>
           { formText }
         </Header>
-        <AuthForm 
-          loginForm={ this.state.loginForm }
-          handleSubmit={ this.handleSubmit } 
-          submitBtnText={ formText }
-          errors={ this.state.errors }
+        <Formik 
+          validationSchema={ this.getValidationSchema }
+          initialValues={ initialValues }
+          onSubmit={ this.handleSubmit }
+          render={ formikProps => (
+            <AuthForm 
+              {...formikProps}
+              loginForm={ this.state.loginForm }
+              submitBtnText={ formText }
+              submissionErrors={ this.state.submissionErrors }
+            />
+          )}
         />
+        
       </Segment>
     )
   }

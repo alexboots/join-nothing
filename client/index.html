@@ -5,10 +5,32 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
   <style>
     /* uhhh ignore me doing css here thanks <3 */
+    /* add webpack css loader */
     body {
       background: #1b1c1d;
     }
 
+    .input-error-wrapper {
+      position: relative;
+    }
+
+    /* Todo: Open pull request on https://github.com/Semantic-Org/Semantic-UI
+        input[type=password] with error is a different background color
+          than other inputs with an error.  
+          Not sure why that would be intentional, seems wrong.
+          currently has background: #fff6f6; 
+          Change to match other inputs behaviour
+           (which has background:$fff / only text color changes)
+    */
+
+    .input-error-text {
+      position: absolute;
+      margin-left: -65px;
+      color: #9f3a38;
+      margin-top: 3px;
+      font-size: 0.90em;
+    }
+    
     @media only screen and (min-width: 1200px) {
       .ui.container {
         width: 630px;
