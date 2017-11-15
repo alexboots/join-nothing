@@ -53,14 +53,13 @@ class AuthForm extends Component {
   }
 
   render() {
-    const { submitBtnText, touched, errors } = this.props
+    const { submitBtnText, touched, errors, isSubmitting } = this.props
     return(
       <Form>
         <SemanticUiForm
           as="div"
           error={ this.props.submissionErrors.length ? true : false }
-          inverted 
-          loading={ false }
+          inverted
         >
           <SemanticUiForm.Group widths="equal">
             <Field
