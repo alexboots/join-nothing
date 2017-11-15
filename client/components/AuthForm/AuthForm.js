@@ -1,96 +1,109 @@
 import React, { Component } from 'react'
-import { Button, Checkbox, Form, Message } from 'semantic-ui-react'
+import { Form, Field } from 'formik';
+import { Button, Checkbox, Form as SemanticUiForm, Message } from 'semantic-ui-react'
 
 class AuthForm extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      username: '',
-      password: '',
-      checked: false
-    }
+  renderSubmissionErrors = () => {
+    return this.props.submissionErrors.map((error, i) => {
+      return (
+        <Message
+          error
+          key={ i }
+          header="🔥"
+          content={ error }
+        />
+      )
+    })
   }
 
-  handleUsernameChange = (e, data) => {
-    const { value } = data
-    this.setState({ username: value })
+  renderInput = (props) => {
+    const { field, form, type, placeholder } = props
+    const { touched, errors } = form
+
+    let fieldError = errors[field.name] ? true : false
+
+    return(
+      <SemanticUiForm.Input 
+        required
+        error={ touched[field.name] && fieldError }
+        placeholder={ placeholder }
+        type={ type }
+        { ...field }
+      />
+    )
   }
 
-  handlePasswordChange = (e, data) => {
-    const { value } = data
-    this.setState({ password: value })
+  renderCheckbox = (props) => {
+    const { label } = props
+    return(
+      <SemanticUiForm.Checkbox 
+        label={ label }
+      />
+    )
   }
 
-  handleCheckboxChange = (e, data) => {
-    const { checked } = data
-    this.setState({ checked })
-  }
-
-  handleSubmit = () => {
-    const { username, password } = this.state
-    this.props.handleSubmit(this.state)
-  }
-
-  renderErrors = () => {
-    if(this.props.errors.length) {
-      return this.props.errors.map((error, i) => {
-        return (
-          <Message
-            error
-            key={ i }
-            header="🔥"
-            content={ error }
-          />
-        )
-      })
-    } else {
-      return null
-    }
+  renderValidationError = (fieldName) => {
+    return(
+      <div className="input-error-wrapper">
+        <span className="input-error-text">
+          { this.props.errors[fieldName] }
+        </span>
+      </div> 
+    )
   }
 
   render() {
-    const { submitBtnText } = this.props
-
+    const { submitBtnText, touched, errors } = this.props
     return(
-      <Form 
-        error={ this.props.errors.length ? true : false }
-        inverted 
-        loading={ false }
-        onSubmit={ this.handleSubmit }  
-      >
-        <Form.Group widths="equal">
-          <Form.Input 
-            required
-            placeholder="username"
-            type="input"
-            onChange={ this.handleUsernameChange }
-          />
-          <Form.Input 
-            required
-            placeholder="password"
-            type="password" 
-            onChange={ this.handlePasswordChange }
-          />
-        </Form.Group>
-
-        { this.props.loginForm ? null : 
-            (
-              <Form.Checkbox 
-                label="I don't agree to any Terms and Conditions" 
-                onChange={ this.handleCheckboxChange }
-              />
-            )
-        }
-        
-        { this.renderErrors() }
-
-        <Button 
+      <Form>
+        <SemanticUiForm
+          as="div"
+          error={ this.props.submissionErrors.length ? true : false }
           inverted 
-          type="submit"
+          loading={ false }
         >
-          { submitBtnText }
-        </Button>
+          <SemanticUiForm.Group widths="equal">
+            <Field
+              name="username"
+              component={ this.renderInput } 
+              type="input"
+              placeholder="username"
+            />
+            { touched.username && 
+              errors.username && 
+              this.renderValidationError('username') }
+  
+            <Field 
+              name="password"
+              component={ this.renderInput } 
+              type="password"
+              placeholder="password"
+            />
+            { touched.password && 
+              errors.password && 
+              this.renderValidationError('password')  }
+              
+          </SemanticUiForm.Group>
+
+          { this.props.loginForm ? null : 
+            <Field 
+              name="doNotSignLicense"
+              component={ this.renderCheckbox } 
+              label="I don't agree to any Terms and Conditions"
+            /> 
+          }
+          { 
+            this.props.submissionErrors.length ? 
+              this.renderSubmissionErrors() : null 
+          }
+
+          <Button 
+            inverted 
+            type="submit"
+          >
+            { submitBtnText }
+          </Button>
+        </SemanticUiForm>
       </Form>
     )
   }
