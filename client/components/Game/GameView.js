@@ -1,5 +1,5 @@
-// Wrapper for game work, getting data from socketIOHOC and passing it down to the game world where needed
-
+// Wrapper for game world. 
+// Getting data from socketIOHOC and passing it down to the game world where needed
 import React, { Component } from 'react'
 import { Segment, Button } from 'semantic-ui-react'
 import io from 'socket.io-client';
