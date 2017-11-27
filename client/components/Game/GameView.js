@@ -24,15 +24,16 @@ class GameView extends Component {
   }
 
   renderMessages = () => {
-    const returNode = []
+    const returNodes = []
     const { messages } = this.props.receivedData
+
     messages.forEach((message, key) => {
-      returNode.push(<div key={ key }>{ message }</div>)
+      returNodes.push(<div key={ key }>{ message }</div>)
     })
 
     return(
       <div>
-      { returNode }
+        { returNodes }
       </div>
     )
   }
