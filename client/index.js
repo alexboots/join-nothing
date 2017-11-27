@@ -7,14 +7,16 @@ import { ApolloProvider } from 'react-apollo'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-import { HomeRoute, DashboardRoute, LoginRoute, SignupRoute } from './routes'
+import { HomeRoute, DashboardRoute, LoginRoute, SignupRoute, GameRoute } from './routes'
 
 import App from './components/App'
 import Navbar from './components/Navbar'
 
 import AuthFormContainer from './components/AuthForm/AuthFormContainer'
 import Dashboard from './components/Dashboard'
+import GameView from './components/Game/GameView'
 
+// Higher Order Components
 import requireAuthHOC from './components/requireAuthHOC'
 
 import GetUser from './queries/GetUser'
@@ -39,6 +41,8 @@ const Root = () => {
           <Route path={ DashboardRoute } component={ requireAuthHOC(Dashboard) } />
           <Route path={ LoginRoute } component={ AuthFormContainer } />
           <Route path={ SignupRoute } component={ AuthFormContainer } />
+
+          <Route path={ GameRoute } component={ GameView } />
         </App>
       </BrowserRouter>
     </ApolloProvider>

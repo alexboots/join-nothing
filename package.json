@@ -34,6 +34,7 @@
     "graphql": "^0.11.7",
     "graphql-tag": "^2.5.0",
     "lodash": "^4.17.4",
+    "matter-js": "^0.13.0",
     "mongoose": "^4.12.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
@@ -43,6 +44,8 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "semantic-ui-react": "^0.75.1",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4",
     "webpack": "^3.8.1",
     "yup": "^0.23.0"
   },
