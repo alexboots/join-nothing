@@ -13,7 +13,8 @@ import {
   HomeRoute, 
   LoginRoute, 
   SignupRoute, 
-  DashboardRoute 
+  DashboardRoute,
+  GameRoute
 } from '../routes'
 
 class Header extends Component {
@@ -24,6 +25,23 @@ class Header extends Component {
     }).then(response => {
       this.props.history.push(HomeRoute)
     })
+  }
+
+  renderButtonsAllUsersSee () {
+    return (
+      <span>
+        <Link to={ HomeRoute }>
+          <Button inverted>
+            Home
+          </Button>
+        </Link>
+        <Link to={ GameRoute }>
+          <Button inverted>
+            Something
+          </Button>
+        </Link>
+      </span>
+    )
   }
 
   renderDashboardButton () {
@@ -78,7 +96,6 @@ class Header extends Component {
   render() {
     const { loading, user } = this.props.data
 
-
     if(loading) {
       return (<Loader active />)
     }
@@ -87,13 +104,7 @@ class Header extends Component {
       <Grid padded columns={ 2 }>
         <Grid.Row>
           <Grid.Column>
-
-            <Link to={ HomeRoute }>
-              <Button inverted>
-                Home
-              </Button>
-            </Link>
-            
+            { this.renderButtonsAllUsersSee() }
             { this.renderDashboardButton() }
           </Grid.Column>
           

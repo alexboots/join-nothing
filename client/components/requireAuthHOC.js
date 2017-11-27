@@ -18,7 +18,7 @@ export default (WrapperComponent) => {
 
     render() {
       if(this.props.data.user) {
-        return  <WrapperComponent { ...this.props } />
+        return (<WrapperComponent { ...this.props } />)
       } else {
         // don't try and resolve component
         return null
