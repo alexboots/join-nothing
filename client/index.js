@@ -14,7 +14,7 @@ import Navbar from './components/Navbar'
 
 import AuthFormContainer from './components/AuthForm/AuthFormContainer'
 import Dashboard from './components/Dashboard'
-import GameView from './components/Game/GameView'
+import LevelContainer from './components/Game/LevelContainer'
 
 // Higher Order Components
 import requireAuthHOC from './components/requireAuthHOC'
@@ -42,7 +42,7 @@ const Root = () => {
           <Route path={ LoginRoute } component={ AuthFormContainer } />
           <Route path={ SignupRoute } component={ AuthFormContainer } />
 
-          <Route path={ GameRoute } component={ GameView } />
+          <Route path={ GameRoute } component={ LevelContainer } />
         </App>
       </BrowserRouter>
     </ApolloProvider>

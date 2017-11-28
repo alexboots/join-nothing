@@ -4,11 +4,20 @@ const app = require('./server/server')
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
-let currentUser 
-let priorUser 
 
-// todo: make this less lazyily done
-let arrayOfUserPairs = []
+// ORGANIZE THIS ALL INTO MODULES FOR FUTURE YOU THX
+
+let currentUser
+let priorUser
+
+// lets make a users by key object for easy lookups
+// maybe I should implement redux on server?
+// const pairKeysByUserId = { pairKey: pairKey }
+// const userPairsByKey = {}
+
+// actually...
+
+const userPairingsById = {}
 const partnerUpUsersOrTellThemToWait = function(socket) {
   io.clients((error, clients) => {
     if (error) { throw error }
@@ -22,54 +31,46 @@ const partnerUpUsersOrTellThemToWait = function(socket) {
     }
 
     if(currentUser && priorUser && clients.length % 2 === 0) {
-      // This is so we if a user drops, we can search the pair and update the other user
-      // there is definitely a more efficient way to store this data
-      arrayOfUserPairs.push([currentUser, priorUser])
+      // current user id is key / partner is data associated with key
+      userPairingsById[currentUser] = priorUser
+      userPairingsById[priorUser] = currentUser
 
-      // Emit partnerId to new pari of users
-      socket.emit('partnerFound', priorUser)
+      // Hmm. keep the pairedUserId in the state on the frontend so we can pass it down with movement data.
+      socket.emit('partnerFound', userPairingsById[priorUser]) 
             .to(priorUser)
-            .emit('partnerFound', currentUser);
+            // emit goes to current socket / user
+            .emit('partnerFound', userPairingsById[currentUser]);
 
-    } else if(currentUser) {
-      console.log('so this isnt working 0_o');
-      // emit 'waiting for another user'
-      socket.emit('waitingOnPartner', 'WAITING');
-      // socket.broadcast.to(id).emit('my message', msg);
     }
-  }) 
+    // No need for an else {} because the 'waiting for partner' state is the default state of the UI
+  })
 }
 
 io.on('connection', function(socket){
   // Emit events for a user to wait for a partner or that they just got one
-  partnerUpUsersOrTellThemToWait(socket)
+  partnerUpUsersOrTellThemToWait(socket) // maybe call every X seconds and check if everyone is paired incase some crazy shit went down i dont understand
 
-  socket.on('joinRoom', function(data) {
-    const { roomName } = data
-
-    if(roomName) {
-      socket.join(roomName)
-    }
-  })
-
-  socket.on('newBoxPosition', function(data) {
-    // arrayOfUserPairs
-    socket.to(priorUser).emit('newPositionDataReceived', data)
+  // Game logic
+  socket.on('latestCoordinates', function(data) {
+    console.log('data ??? ');
+    const partnerId = userPairingsById[socket.id]
+    socket.to(partnerId).emit('latestCoordinates', data)
   })
 
   // Could come from multiple different 'buttons' but want to target a specific component
-  socket.on('buttonClicked', function(data){
-    if(data && data.serverEmitName && data.message) {
-      socket.emit(`${data.serverEmitName}`, data.message)
-    }
-  })
-
+  // socket.on('buttonClicked', function(data){
+  //   if(data && data.serverEmitName && data.message) {
+  //     socket.emit(`${data.serverEmitName}`, data.message)
+  //   }
+  // })
 
   socket.on('disconnect', function(){
-    console.log('disconnect');
+
+    // Remove user and send 'your partner disconnected' to other user in pair
+    console.log('\n\n!~~~disconnect\n\n');
   })
 })
 
 server.listen(5000, () => {
-  console.log('Listening');
+  console.log('Im listening (said in Frasier voice).');
 })

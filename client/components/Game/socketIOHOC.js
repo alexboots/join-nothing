@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
 
+// Todo: see if it data gets confusing to follow and if it does, 
+//       implement redux here w socket.io middleware
 export default (WrappedComponent, receiveEmitNames) => {
   class socketIOHOC extends Component {
     constructor(props) {
@@ -8,23 +10,16 @@ export default (WrappedComponent, receiveEmitNames) => {
       this.socket = io()
 
       this.state = {
-        messages: [],
-        partner: false,
-        newPositionDataReceived: {}
+        partnerId: null,
+        latestCoordinates: null
       }
 
-      // Universal messages
-      this.socket.on('waitingOnPartner', (data) => {
-        this.setState({ partner: false })
+      this.socket.on('partnerFound', (partnerId) => {
+        this.setState({ partnerId })
       })
 
-      this.socket.on('partnerFound', (userId) => {
-        console.log('userId', userId);
-        this.setState({ partner: userId })
-      })
-
-      this.socket.on('newPositionDataReceived', (data) => {
-        this.setState({ newPositionDataReceived: data })
+      this.socket.on('latestCoordinates', (data) => {
+        this.setState({ latestCoordinates: data })
       })
 
       // Create component specific messages based on user actions
@@ -32,6 +27,9 @@ export default (WrappedComponent, receiveEmitNames) => {
         return
       }
       
+      // Generic
+      // So we can easily make new game components without having to make a socket connection for
+      // each new game object we're dealing with ( I feel like this will come in handy )
       receiveEmitNames.forEach((receiveEmitName) => {
         this.socket.on(`${receiveEmitName}`, (message) => {
           this.setState({
@@ -45,9 +43,8 @@ export default (WrappedComponent, receiveEmitNames) => {
     render() {
       return (
         <WrappedComponent 
-          { ...this.props } 
-          newPositionDataReceived={ this.state.newPositionDataReceived }
-          receivedData={ this.state }
+          { ...this.props }
+          gameData={ this.state }
           socket={ this.socket }
         />
       )
