@@ -9,7 +9,8 @@ export default (WrappedComponent, receiveEmitNames) => {
 
       this.state = {
         messages: [],
-        partner: false
+        partner: false,
+        newPositionDataReceived: {}
       }
 
       // Universal messages
@@ -18,7 +19,12 @@ export default (WrappedComponent, receiveEmitNames) => {
       })
 
       this.socket.on('partnerFound', (userId) => {
+        console.log('userId', userId);
         this.setState({ partner: userId })
+      })
+
+      this.socket.on('newPositionDataReceived', (data) => {
+        this.setState({ newPositionDataReceived: data })
       })
 
       // Create component specific messages based on user actions
@@ -40,8 +46,9 @@ export default (WrappedComponent, receiveEmitNames) => {
       return (
         <WrappedComponent 
           { ...this.props } 
-          socket={ this.socket } 
+          newPositionDataReceived={ this.state.newPositionDataReceived }
           receivedData={ this.state }
+          socket={ this.socket }
         />
       )
     } 

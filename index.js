@@ -4,14 +4,14 @@ const app = require('./server/server')
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
+let currentUser 
+let priorUser 
+
 // todo: make this less lazyily done
 let arrayOfUserPairs = []
 const partnerUpUsersOrTellThemToWait = function(socket) {
   io.clients((error, clients) => {
     if (error) { throw error }
-    
-    let currentUser 
-    let priorUser 
 
     if(clients.length) {
       currentUser = clients[clients.length - 1]
@@ -50,6 +50,11 @@ io.on('connection', function(socket){
     if(roomName) {
       socket.join(roomName)
     }
+  })
+
+  socket.on('newBoxPosition', function(data) {
+    // arrayOfUserPairs
+    socket.to(priorUser).emit('newPositionDataReceived', data)
   })
 
   // Could come from multiple different 'buttons' but want to target a specific component

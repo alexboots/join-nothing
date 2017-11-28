@@ -52,7 +52,10 @@ class GameView extends Component {
           test click
         </Button>*/}
 
-        <GameWorld />
+        <GameWorld 
+          newPositionDataReceived={this.props.newPositionDataReceived}
+          socket={ this.props.socket }
+        />
       </Segment>
     )
   }
