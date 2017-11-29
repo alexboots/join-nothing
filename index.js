@@ -64,6 +64,10 @@ io.on('connection', function(socket){
   //   }
   // })
 
+  socket.on('latencyTest', function (startTime, cb) {
+    cb(startTime)
+  }); 
+
   socket.on('disconnect', function(){
 
     // Remove user and send 'your partner disconnected' to other user in pair

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Matter from 'matter-js'
-import { debounce } from 'lodash'
 
 class LevelCanvas extends Component {
   constructor(props) {
@@ -90,8 +89,6 @@ class LevelCanvas extends Component {
       
     })
 
-    console.log('debounce,', debounce);
-
     // World.add(world, mouseConstraint)
     World.add(world, mouseConstraint)
 
@@ -100,34 +97,32 @@ class LevelCanvas extends Component {
   }
 
   handleMove = () => {
-    console.log('handle move isn');
-    console.log('this.props.socket', this.props.socket);
     // So each user should only be triggering one of these when they grab their own game object
     if(this.state.boxA_BeingDragged) {
-      this.props.socket.emit('latestCoordinates', { 
-        objectId: 'boxA',
-        x: this.boxA.position.x, 
-        y: this.boxA.position.y
-      })
+      this.sendMove('boxA')
     }
 
     if(this.state.boxB_BeingDragged) {
-      this.props.socket.emit('latestCoordinates', { 
-        objectId: 'boxB',
-        x: this.boxB.position.x, 
-        y: this.boxB.position.y
-      })
+      this.sendMove('boxB')
     }
-
     // Gravity isn't synced properly so stuff gets a bit weird but dont have to deal w it right now
   }
 
-  sendMove = () => {
+  sendMove = (objectId) => {
+    this.props.socket.emit('latestCoordinates', { 
+      objectId,
+      x: this[objectId].position.x, 
+      y: this[objectId].position.y
+    })
 
+    // TEST CODE
+    this.props.socket.emit('latencyTest', Date.now(), (startTime) => {
+      var latency = Date.now() - startTime;
+      console.log(`Latency is ${latency}ms`);
+    });
   }
 
   render() {
-    console.log('RENDER this.state', this.state);
     return(
       <canvas ref={ (levelCanvasRef) => { this.levelCanvasRef = levelCanvasRef } }></canvas>
     )
