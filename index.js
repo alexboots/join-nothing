@@ -6,16 +6,8 @@ const io = require('socket.io')(server)
 
 
 // ORGANIZE THIS ALL INTO MODULES FOR FUTURE YOU THX
-
 let currentUser
 let priorUser
-
-// lets make a users by key object for easy lookups
-// maybe I should implement redux on server?
-// const pairKeysByUserId = { pairKey: pairKey }
-// const userPairsByKey = {}
-
-// actually...
 
 const userPairingsById = {}
 const partnerUpUsersOrTellThemToWait = function(socket) {
@@ -48,7 +40,7 @@ const partnerUpUsersOrTellThemToWait = function(socket) {
 
 io.on('connection', function(socket){
   // Emit events for a user to wait for a partner or that they just got one
-  partnerUpUsersOrTellThemToWait(socket) // maybe call every X seconds and check if everyone is paired incase some crazy shit went down i dont understand
+  partnerUpUsersOrTellThemToWait(socket)
 
   // Game logic
   socket.on('latestCoordinates', function(data) {
