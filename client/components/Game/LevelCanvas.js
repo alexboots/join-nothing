@@ -86,12 +86,16 @@ class LevelCanvas extends Component {
 
     Events.on(runner, "afterUpdate", () => {
       this.handleMove()
-      
+      // Need to do something to keep it frozen in the last place the other person moved it
+      // until the next bit of data comes through
     })
 
     // World.add(world, mouseConstraint)
     World.add(world, mouseConstraint)
 
+    // Test - might have to remove gravity from objects UNTIL they are no longer being dragged 
+    engine.world.gravity.scale = 0
+    
     Engine.run(engine)
     Render.run(render)
   }
