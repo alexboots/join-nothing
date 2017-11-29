@@ -52,7 +52,6 @@ io.on('connection', function(socket){
 
   // Game logic
   socket.on('latestCoordinates', function(data) {
-    console.log('data ??? ');
     const partnerId = userPairingsById[socket.id]
     socket.to(partnerId).emit('latestCoordinates', data)
   })
