@@ -19,8 +19,8 @@ json.dumps( ('MISLIKED', ((5, 6), (12, 6)), ('M', 'I', '_', 'I', 'K', 'E', 'D'),
 
 
 const mockWordData = [
-  ["MIMICKED", [[3, 5], [3, 12]], ["M", "I", "_", ":C:", "I", "K", "E", "D"], 75],
-  ["MIMICKED", [[3, 5], [3, 12]], ["_", "I", "M", ":C:", "I", "K", "E", "D"], 75],
+  ["MIMICKED", [[3, 5], [3, 12]], ["M", "I", "_", "I", ":C:", "K", "E", "D"], 75],
+  ["MIMICKED", [[3, 5], [3, 12]], ["_", "I", "M", "I", ":C:", "K", "E", "D"], 75],
   ["MISLIKED", [[5, 6], [5, 13]], ["M", "I", "_", ":L:", "I","K", "E", "D"], 67],
   ["MISLIKED", [[5, 6], [12, 6]], ["M", "I", "_", ":L:", "I", "K", "E", "D"], 55]
 ]
@@ -81,7 +81,7 @@ class ScrabbleBoard extends Component {
   }
 
   handleWordOut = () => {
-    // this.setState({ ...initialState })
+    this.setState({ ...initialState })
   }
 
   showWordList = () => {
