@@ -4,10 +4,28 @@ import { Container, Segment } from 'semantic-ui-react'
 import classNames from 'classnames'
 
 class Tile extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    // So we don't re-render every single cell on hover over
+    const oldTile = this.shouldUpdateCell(this.props)
+    const newTile = this.shouldUpdateCell(nextProps)
+
+    if(oldTile || newTile) {
+      return true
+    }
+
+    return false
+  }
+
+  shouldUpdateCell = (props) => {
+    const { cellsToHighlight, tileNumber } = props
+
+    return cellsToHighlight.includes(tileNumber)
+  }
+
   render() {
     const { 
       tileNumber,
-
       wordChars,
       cellsToHighlight
     } = this.props
@@ -27,7 +45,7 @@ class Tile extends Component {
       display: 'inline-block'
     }
 
-    const highlightCell = cellsToHighlight.includes(tileNumber)
+    const highlightCell = this.shouldUpdateCell(this.props)
     let char = ' '
     let indexOfChar = null
 
@@ -40,7 +58,7 @@ class Tile extends Component {
       char =  wordChars[indexOfChar]
     } else {
       char = tileNumber
-    }
+    } 
 
     return (
       <div style={ tileOutter }>
