@@ -19,6 +19,8 @@ import LevelContainer from './components/Game/LevelContainer'
 // Higher Order Components
 import requireAuthHOC from './components/requireAuthHOC'
 
+import ScrabbleBoard from './components/Scrabble/Board'
+
 import GetUser from './queries/GetUser'
 
 const link = createHttpLink({
@@ -43,6 +45,8 @@ const Root = () => {
           <Route path={ SignupRoute } component={ AuthFormContainer } />
 
           <Route path={ GameRoute } component={ LevelContainer } />
+
+          <Route path={ '/scrabble' } component={ ScrabbleBoard } />
         </App>
       </BrowserRouter>
     </ApolloProvider>
