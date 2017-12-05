@@ -6,11 +6,8 @@ import classNames from 'classnames'
 class Tile extends Component {
   render() {
     const { 
-      location, 
       tileNumber,
 
-      startCell,
-      endCell,
       wordChars,
       cellsToHighlight
     } = this.props

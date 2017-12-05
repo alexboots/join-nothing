@@ -27,9 +27,8 @@ const mockWordData = [
 
 const initialState = {
   wordHoveredKey: null,
-  startCell: null,
-  endCell: null,
-  cellsToHighlight: []
+  cellsToHighlight: [],
+  wordChars: ''
 }
 
 class ScrabbleBoard extends Component {
@@ -53,7 +52,6 @@ class ScrabbleBoard extends Component {
   }
 
   handleWordOver = (wordInfo, i) => {
-    this.setState({ wordHoveredKey: i })
 
     const startOfWord = wordInfo[1][0]
     const endOfWord   = wordInfo[1][1]
@@ -73,9 +71,8 @@ class ScrabbleBoard extends Component {
     const cellsToHighlight = this.getCellsToHighlightArray(startCell, endCell, horizontal)
 
     this.setState({ 
-      startCell, 
-      endCell,
       cellsToHighlight,
+      wordHoveredKey: i,
       wordChars: wordInfo[2]
     })
   }
@@ -114,8 +111,6 @@ class ScrabbleBoard extends Component {
         <Tile
           key={ i }
           tileNumber={ i } 
-          startCell={ this.state.startCell }
-          endCell={ this.state.endCell }
           cellsToHighlight={ this.state.cellsToHighlight }
           wordChars={ this.state.wordChars }
         />
@@ -131,7 +126,7 @@ class ScrabbleBoard extends Component {
     }
 
     return (
-      <div>
+      <div className="scrabble-container">
         <div>
           Word List
           { this.showWordList()  }
