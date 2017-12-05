@@ -19,6 +19,8 @@ json.dumps( ('MISLIKED', ((5, 6), (12, 6)), ('M', 'I', '_', 'I', 'K', 'E', 'D'),
 
 
 const mockWordData = [
+              // row column
+              // y start   / x start
   ["MIMICKED", [[3, 5], [3, 12]], ["M", "I", "_", "I", ":C:", "K", "E", "D"], 75],
   ["MIMICKED", [[3, 5], [3, 12]], ["_", "I", "M", "I", ":C:", "K", "E", "D"], 75],
   ["MISLIKED", [[5, 6], [5, 13]], ["M", "I", "_", ":L:", "I","K", "E", "D"], 67],
@@ -53,20 +55,23 @@ class ScrabbleBoard extends Component {
 
   handleWordOver = (wordInfo, i) => {
 
+
+    // [[3, 5]
     const startOfWord = wordInfo[1][0]
+    //  [3, 12]]
     const endOfWord   = wordInfo[1][1]
 
     // Note: 
-    // startOfWord[0] === x
-    // startOfWord[1] === y
+    // startOfWord[0] === y / row
+    // startOfWord[1] === x / col
 
-    const rowStart = (startOfWord[1] * 15) - 15  
-    const startCell = rowStart + startOfWord[0] - 1
+    const rowStart = (startOfWord[0] * 15) - 15
+    const startCell = rowStart + startOfWord[1] - 1
 
-    const rowEnd = (endOfWord[1] * 15)  - 15
-    const endCell = rowEnd + endOfWord[0] - 1
+    const rowEnd = (endOfWord[0] * 15)  - 15
+    const endCell = rowEnd + endOfWord[1] - 1
 
-    const horizontal = startOfWord[1] === endOfWord[1] // if start of word Y is the same as end of word Y its horizontal
+    const horizontal = startOfWord[0] === endOfWord[0] // if start of word Y is the same as end of word Y its horizontal
 
     const cellsToHighlight = this.getCellsToHighlightArray(startCell, endCell, horizontal)
 
