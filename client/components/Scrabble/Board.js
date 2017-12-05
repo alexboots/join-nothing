@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Segment } from 'semantic-ui-react'
-import classnames from 'classNames'
+import classNames from 'classnames'
 
 import Tile from './Tile'
 
@@ -93,7 +93,7 @@ class ScrabbleBoard extends Component {
 
       wordList.push(
         <div
-          className={ classnames({ 'hover-word': this.state.wordHoveredKey === i }) }
+          className={ classNames({ 'hover-word': this.state.wordHoveredKey === i }) }
           key={ i }
           onMouseEnter={ this.handleWordOver.bind(this, wordInfo, i) }
           onMouseOut={ this.handleWordOut.bind(this, wordInfo, i) }
