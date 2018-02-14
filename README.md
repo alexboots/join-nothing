@@ -10,3 +10,7 @@ Make sure to have [nodemon](https://github.com/remy/nodemon) installed and `yarn
 If deployed via dokku (or something that runs npm run start) it should be ready to go live. The production build could be improved greatly. 
 
 demo: [joinnothing.com](http://joinnothing.com)
+
+
+### Todo
+switch to parceljs
