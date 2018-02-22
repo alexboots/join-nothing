@@ -14,7 +14,8 @@ import {
   LoginRoute, 
   SignupRoute, 
   DashboardRoute,
-  GameRoute
+  GameRoute,
+  WordCountRoute
 } from '../routes'
 
 class Header extends Component {
@@ -38,6 +39,11 @@ class Header extends Component {
         <Link to={ GameRoute }>
           <Button inverted>
             Something
+          </Button>
+        </Link>
+        <Link to={ WordCountRoute }>
+          <Button inverted>
+            Count Words
           </Button>
         </Link>
       </span>

@@ -16,6 +16,7 @@ class WordCount extends Component {
 
   changeWordCount = (e) => {
     if(e && e.target && e.target.value) {
+
       let wordCount = 0
       const words = e.target.value.split(" ").forEach(word => {
         if(word.length) {
@@ -25,6 +26,10 @@ class WordCount extends Component {
 
       this.setState({
         words: wordCount
+      })
+    } else {
+      this.setState({
+        words: 0
       })
     }
   }
