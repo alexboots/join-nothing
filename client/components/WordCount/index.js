@@ -30,6 +30,11 @@ class WordCount extends Component {
   }
 
   render() {
+
+    const setHeight = {
+      height: '260px'
+    }
+
     return(
       <Segment 
         inverted 
@@ -37,6 +42,7 @@ class WordCount extends Component {
       >
         <Form>
           <TextArea 
+            style={ setHeight }
             placeholder=':)' 
             onKeyUp={ this.changeWordCount }
           />
