@@ -14,7 +14,10 @@ class RelaxContainer extends Component {
       signal: 'hi'
     }
 
-    this.p = new Peer({ initiator: location.hash === '#1', trickle: false })
+
+
+
+    this.p = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream })
 
     this.p.on('error', (err) => { console.log('error', err) })
 
@@ -30,6 +33,22 @@ class RelaxContainer extends Component {
 
     this.p.on('data', (data) => {
       console.log('data: ' + data)
+    })
+  }
+
+
+  componentDidMount() {
+    navigator.getUserMedia({ video: true, audio: true }, this.video, function () {})
+  }
+
+  video = (stream) => {
+
+    this.p.on('stream', (stream) => {
+      console.log('');
+      // got remote video stream, now let's show it in a video tag
+      let video = document.querySelector('video')
+      video.src = window.URL.createObjectURL(stream)
+      video.play()
     })
   }
 
@@ -55,6 +74,7 @@ class RelaxContainer extends Component {
         inverted 
         className="dashboard"
       >
+        <video></video>
         <form onSubmit={ this.onSubmit }>
           <textarea id="incoming" onChange={ (e) => { this.setState({value: e.target.value }) } }></textarea>
           <button type="submit">submit</button>

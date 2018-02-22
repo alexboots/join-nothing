@@ -8,3 +8,5 @@ export const DashboardRoute = `${Home}dashboard`
 
 export const GameRoute = `${Home}something`
 export const RelaxRoute = `${Home}relax`
+
+export const WordCountRoute = `${Home}word-count`

@@ -13,7 +13,8 @@ import {
   LoginRoute, 
   SignupRoute, 
   GameRoute, 
-  RelaxRoute 
+  RelaxRoute,
+  WordCountRoute 
 } from './routes'
 
 import App from './components/App'
@@ -29,6 +30,8 @@ import RelaxContainer from './components/Relax/RelaxContainer'
 import requireAuthHOC from './components/requireAuthHOC'
 
 import ScrabbleBoard from './components/Scrabble/Board'
+
+import WordCount from './components/WordCount'
 
 import GetUser from './queries/GetUser'
 
@@ -57,6 +60,8 @@ const Root = () => {
           <Route path={ RelaxRoute } component={ RelaxContainer } />
 
           <Route path={ '/scrabble' } component={ ScrabbleBoard } />
+
+          <Route path={ WordCountRoute } component={ WordCount } />
         </App>
       </BrowserRouter>
     </ApolloProvider>
